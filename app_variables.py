@@ -1,0 +1,37 @@
+# kwargs initial Structure
+kwargs = {
+    # Functions
+    'get_telegram_window': None,
+    'get_screen_area': None,
+    'on_game_session_start_time_change': None,
+    'on_games_per_session_no_change': None,
+    'on_pause_between_games_change': None,
+    'on_threshold_changed': None,
+    'on_unite_tolerance_changed': None,
+    'on_clicker_threads_no_changed': None,
+    'on_entry_enter': None,
+    'start_game_session': None,
+    'stop_game_session': None,
+    'start_screening': None,
+    'stop_screening': None,
+    'start_clicker': None,
+    'stop_clicker': None,
+    'get_back_to_home_page': None,
+    # Variables
+    'monitor': None,
+    'threshold': 0.55,
+    'unite_tolerance': 35,
+    'game_session_start_time': '08:00',
+    'clicker_threads_no': 1,
+    'games_per_session_no': 2,
+    'pause_between_games_seconds': 10,
+    'telegram_window': None,
+    # States
+    'clicker_running': False,
+    'is_game_session_monitoring_running': False,
+    'is_game_session_running': False,
+    'is_game_running': False,
+    'auto_start_running': False,
+    'auto_end_running': False,
+    'screening_running': False,
+}

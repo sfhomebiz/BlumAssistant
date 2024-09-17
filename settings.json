@@ -1,0 +1,15 @@
+{
+    "monitor": {
+        "left": 1505,
+        "top": 207,
+        "width": 352,
+        "height": 519
+    },
+    "games_per_session_no": "5",
+    "pause_between_games_seconds": "5",
+    "clicker_threads_no": 1.0,
+    "threshold": 0.55,
+    "unite_tolerance": 35.0,
+    "game_session_start_time": "08:30",
+    "game_session_last_run": "2024-09-11T10:26:48.636490"
+}
