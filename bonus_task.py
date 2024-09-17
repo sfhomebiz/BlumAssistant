@@ -57,6 +57,7 @@ class BonusTask(Thread):
 class BonusesUI(ctk.CTkFrame):
     def __init__(self, master, border_width=1):
         super().__init__(master=master, border_width=border_width)
+        self.settings = SettingsManager("settings.json")
         autostart_row = 0
         pady = 5
         padx = 5
@@ -115,11 +116,11 @@ class BonusesUI(ctk.CTkFrame):
         try:
             time_str = app.game_session_start_time_value.get()
             game_session_start_time = datetime.strptime(time_str, "%H:%M").time()
-            settings.set_setting('game_session_start_time', time_str)
-            settings.save_settings()
+            self.settings.set_setting('game_session_start_time', time_str)
+            self.settings.save_settings()
             print(f"game_session_start_time value set to {time_str}.")
             # Update the result or perform any other actions
-            game_monitoring.session_start_time = game_session_start_time
+            # game_monitoring.session_start_time = game_session_start_time
         except ValueError:
             print(f"Invalid value entered. game_session_start_time value set to {str(game_session_start_time.strftime('%H:%M'))}.")
             # Handle the case when the input is not a valid number
