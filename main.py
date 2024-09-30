@@ -18,7 +18,7 @@ from threading import Thread, get_ident
 
 # from game_session import start_game_session_monitoring, stop_game_session_monitoring, game_session_monitoring_thread_running
 import game_session
-import bonus_task
+from bonus import bonus_ui
 import user_interface
 from app_variables import kwargs
 

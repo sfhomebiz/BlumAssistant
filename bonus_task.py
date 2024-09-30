@@ -1,10 +1,10 @@
-
 from threading import Thread, Event
 import customtkinter as ctk
 from settings_manager import SettingsManager
 from datetime import datetime, date, timedelta, time as dtime
 import time
 import schedule
+import ctk_widgets
 
 
 class BonusMonitoring(Thread):
@@ -29,29 +29,6 @@ class BonusMonitoring(Thread):
         pass
 
 
-class BonusTask(Thread):
-    def __init__(self, start_time: dtime, state_update_callback: callable):
-        self.start_time = start_time
-        self.is_bonus_task_running = False
-        self.state_update_callback = state_update_callback
-
-    def stop(self):
-        self.is_bonus_task_running = False
-        self.state_update_callback(self.state_update_callback(self.is_bonus_task_running.__str__()))
-        pass
-
-    def run(self):
-        self.is_bonus_task_running = True
-        self.state_update_callback(self.state_update_callback(self.is_bonus_task_running.__str__()))
-        print(f"Bonus task running ...")
-        # TODO: Implement bonus task logic
-        # Click (to focus) Telegram window
-        # Send keyboard F5 key
-        # Wait for Continue button to appear
-        # Click Continue button
-        # Wait for Home page to appear
-        print(f"Bonus task completed.")
-        pass
 
 
 class BonusesUI(ctk.CTkFrame):
@@ -71,6 +48,13 @@ class BonusesUI(ctk.CTkFrame):
         # ---------------------------------
         # game_session_start_time
         autostart_row += 1
+        session_start_entry = ctk_widgets.CTkEntryEx(master=self, row=autostart_row,
+                                                     title="Session start:",
+                                                     setting_name="bonus_start_time",
+                                                     value_changed_callback=self.on_start_time_return,
+                                                     default_value="08:00")
+
+        autostart_row += 1
         lbl_font = ("Bahnschrift Light Condensed", 13)
         self.bonus_start_time_label = ctk.CTkLabel(master=self, text="Session start:", font=lbl_font, height=20)
         self.bonus_start_time_label.grid(row=autostart_row, column=0, pady=pady * 0.5, padx=2 * padx, sticky="w")
@@ -81,38 +65,38 @@ class BonusesUI(ctk.CTkFrame):
         self.bonus_start_time_value.bind("<Return>", self.on_start_time_return)
         self.bonus_start_time_value.bind("<FocusIn>", self.on_focus)
 
+        autostart_row += 1
         self.monitoring_button = ctk.CTkButton(master=self, text="START", command=self.start_monitoring, height=56)
         self.monitoring_button.grid(row=autostart_row, column=0, pady=pady, padx=padx, sticky="ew")
 
         # Monitoring running
         autostart_row += 1
         self.bonus_task_monitoring_label_title = ctk.CTkLabel(master=self, text="Monitoring", width=60,
-                                                                compound="right", anchor="e")
+                                                              compound="right", anchor="e")
         self.bonus_task_monitoring_label_value = ctk.CTkLabel(master=self,
-                                                                text="getting value ...", width=60, compound="left",
-                                                                anchor="w", height=24, corner_radius=11)
+                                                              text="getting value ...", width=60, compound="left",
+                                                              anchor="w", height=24, corner_radius=11)
         self.bonus_task_monitoring_label_title.grid(row=autostart_row, pady=0, padx=padx, sticky="w")
         self.bonus_task_monitoring_label_value.grid(row=autostart_row, pady=0, padx=padx, sticky="e")
 
         # Bonus task running
         autostart_row += 1
         self.bonus_task_label_title = ctk.CTkLabel(master=self, text="Session", width=60,
-                                                                compound="right", anchor="e")
+                                                   compound="right", anchor="e")
         self.bonus_task_label_value = ctk.CTkLabel(master=self,
-                                                                text="...", width=60, compound="left",
-                                                                anchor="w", height=24, corner_radius=11)
+                                                   text="...", width=60, compound="left",
+                                                   anchor="w", height=24, corner_radius=11)
         self.bonus_task_label_title.grid(row=autostart_row, pady=0, padx=padx, sticky="w")
         self.bonus_task_label_value.grid(row=autostart_row, pady=0, padx=padx, sticky="e")
 
-
-    def start_monitoring(self, event):
+    def start_monitoring(self):
 
         # Schedule the task to run daily at 08:00
         schedule.every().day.at("08:00").do(self.task_to_run)
 
         global app, game_session_start_time
         # app = App()
-        print(f"Event occured: {event}")
+        # print(f"Event occured: {event}")
         try:
             time_str = app.game_session_start_time_value.get()
             game_session_start_time = datetime.strptime(time_str, "%H:%M").time()
@@ -122,16 +106,17 @@ class BonusesUI(ctk.CTkFrame):
             # Update the result or perform any other actions
             # game_monitoring.session_start_time = game_session_start_time
         except ValueError:
-            print(f"Invalid value entered. game_session_start_time value set to {str(game_session_start_time.strftime('%H:%M'))}.")
+            print(
+                f"Invalid value entered. game_session_start_time value set to {str(game_session_start_time.strftime('%H:%M'))}.")
             # Handle the case when the input is not a valid number
             pass
 
-
-    def on_start_time_return(self):
-
+    def on_start_time_return(self, event):
+        print(f"on_start_time_return in event occured: {event}")
         pass
 
-    def on_focus(self):
+    def on_focus(self, event):
+        print(f"Focus in event occured: {event}")
         pass
 
 

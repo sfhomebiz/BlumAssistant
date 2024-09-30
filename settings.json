@@ -1,7 +1,7 @@
 {
     "monitor": {
-        "left": 1505,
-        "top": 207,
+        "left": 1544,
+        "top": 76,
         "width": 352,
         "height": 519
     },
@@ -11,5 +11,7 @@
     "threshold": 0.55,
     "unite_tolerance": 35.0,
     "game_session_start_time": "08:30",
-    "game_session_last_run": "2024-09-11T10:26:48.636490"
+    "game_session_last_run": "2024-09-11T10:26:48.636490",
+    "bonus_start_time": "08:00",
+    "bonus_monitoring": "OFF"
 }

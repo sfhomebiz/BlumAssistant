@@ -2,7 +2,7 @@ import customtkinter as ctk
 from customtkinter import CTkCanvas
 from threading import Thread, get_ident
 import queue
-from bonus_task import BonusesUI
+from bonus.bonus_ui import BonusesUI
 
 
 class ScreenAreaAutoStatus:
