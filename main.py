@@ -1,27 +1,26 @@
-import time
-from datetime import datetime
 import math
-
-import numpy as np
-from mss import mss
-import cv2
-import win32gui, win32api, win32con
+import time
 from ctypes import windll, Structure, c_ulong, byref, sizeof
+from datetime import datetime
+from threading import Thread
 
+import customtkinter as ctk
+import cv2
+import numpy as np
+import win32api
+import win32con
+import win32gui
+from customtkinter import CTkCanvas
+from mss import mss
 # import clicker
 # import opencv
 from pynput import keyboard
-from settings_manager import SettingsManager
-import customtkinter as ctk
-from customtkinter import CTkCanvas
-from threading import Thread, get_ident
 
 # from game_session import start_game_session_monitoring, stop_game_session_monitoring, game_session_monitoring_thread_running
 import game_session
-from bonus import bonus_ui
 import user_interface
 from app_variables import kwargs
-
+from settings_manager import SettingsManager
 
 screening_running = False
 clicker_running = False
@@ -672,12 +671,6 @@ def test_click_confirmed():
 
 def navigate_to_play_game() -> bool:
     global monitor, app, telegram_window
-    import win32gui
-    import win32ui
-    import win32api
-    import win32con
-    import win32process
-    import win32com.client
     import time
     import telegram_app_window as tgwin
 
@@ -2093,6 +2086,19 @@ def on_monitoring_status_change(monitoring_status: bool):
     # app.
 
 
+def test_function():
+    from bonus.bonus_manager import BonusTask, set_foreground_window, send_key_press
+    global telegram_window
+    bonus_task = BonusTask(state_update_callback=bonus_task_state_callback, telegram_window_handle=telegram_window["hwnd"])
+    print("Starting bonus task ...")
+    bonus_task.start()
+    print("Bonus task completed")
+
+
+def bonus_task_state_callback(state: str):
+    print(f"bonus task state changed to {state}")
+
+
 def init_kwargs():
     # Functions
     kwargs["get_telegram_window"] = get_telegram_window
@@ -2112,6 +2118,7 @@ def init_kwargs():
     kwargs["stop_clicker"] = stop_clicker
     kwargs["get_back_to_home_page"] = get_back_to_home_page
     kwargs["is_home_page"] = is_home_page
+    kwargs["test_function"] = test_function
     # Variables
     kwargs["monitor"] = monitor
     kwargs["threshold"] = threshold

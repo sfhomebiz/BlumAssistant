@@ -29,8 +29,6 @@ class BonusMonitoring(Thread):
         pass
 
 
-
-
 class BonusesUI(ctk.CTkFrame):
     def __init__(self, master, border_width=1):
         super().__init__(master=master, border_width=border_width)

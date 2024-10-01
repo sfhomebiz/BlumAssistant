@@ -305,7 +305,8 @@ class App(ctk.CTk):
         # self.test_button = ctk.CTkButton(master=self.test_frame, text="Test", command=test_click_confirmed)
         # self.test_button = ctk.CTkButton(master=self.test_frame, text="Test", command=get_objects_locations_by_hsv_mask)
         # self.test_button = ctk.CTkButton(master=self.test_frame, text="Test", command=self.kwargs["get_back_to_home_page"])
-        self.test_button = ctk.CTkButton(master=self.test_frame, text="Test", command=self.kwargs["is_home_page"])
+        # self.test_button = ctk.CTkButton(master=self.test_frame, text="Test", command=self.kwargs["is_home_page"])
+        self.test_button = ctk.CTkButton(master=self.test_frame, text="Test", command=self.kwargs["test_function"])
 
         self.test_button.grid(row=1, column=0, pady=pady, padx=padx, sticky="ew")
 
